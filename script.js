@@ -1,7 +1,7 @@
 const startButton = document.getElementById('start-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
-const answerButtons = document.getElementById('answer-buttons')
+const answerButtonsElement = document.getElementById('answer-buttons')
 
 
 let shuffledQuestions, currentQuestionIndex
@@ -23,9 +23,19 @@ function setNextQuestion() {
 
 function showQuestion(question) {
   questionElement.innerText = question.question
+  question.answers.forEach(answer => {
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
+    if (answer.correct) {
+      button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', selectAnswer)
+    answerButtonsElement.appendChild(button)
+  })
 }
 
-function selectAnswer() {
+function selectAnswer(e) {
 
 }
 
@@ -34,7 +44,7 @@ const questions = [
     question: 'How to you get an integer without any decimals?',
     answers: [
       { text: 'Math.floor', correct: true },
-      {text: 'Math.random', correct: false}
+      { text: 'Math.random', correct: false }
     ]
   }
 ]
